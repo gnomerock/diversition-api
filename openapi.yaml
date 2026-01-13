@@ -1,0 +1,162 @@
+openapi: 3.0.0
+info:
+  title: openapi
+  version: 1.0.0
+paths:
+  /v1/auth/login:
+    post:
+      summary: login
+      operationId: login
+      description: ''
+      tags:
+        - /Users/gnomerock/repo/diversition-api/authentication/login.bru
+      responses:
+        '200':
+          description: ''
+      requestBody:
+        $ref: '#/components/requestBodies/login'
+  /v1/reviews/:id:
+    delete:
+      summary: delete review
+      operationId: delete review
+      description: ''
+      tags:
+        - /Users/gnomerock/repo/diversition-api/products/delete review.bru
+      responses:
+        '200':
+          description: ''
+      parameters:
+        - name: id
+          in: query
+          description: ''
+          required: true
+          example: '1'
+    put:
+      summary: edit review
+      operationId: edit review
+      description: ''
+      tags:
+        - /Users/gnomerock/repo/diversition-api/products/edit review.bru
+      responses:
+        '200':
+          description: ''
+      parameters:
+        - name: id
+          in: query
+          description: ''
+          required: true
+          example: '1'
+  /v1/products/:id:
+    get:
+      summary: get product by id
+      operationId: get product by id
+      description: ''
+      tags:
+        - /Users/gnomerock/repo/diversition-api/products/get product by id.bru
+      responses:
+        '200':
+          description: ''
+      parameters:
+        - name: id
+          in: query
+          description: ''
+          required: true
+          example: '1'
+  /v1/products:
+    get:
+      summary: get products
+      operationId: get products
+      description: ''
+      tags:
+        - /Users/gnomerock/repo/diversition-api/products/get products.bru
+      responses:
+        '200':
+          description: ''
+      parameters:
+        - name: page
+          in: query
+          description: ''
+          required: true
+          example: '1'
+        - name: pageSize
+          in: query
+          description: ''
+          required: true
+          example: '5'
+  /v1/products/:id/reviews:
+    post:
+      summary: review a product
+      operationId: review a product
+      description: ''
+      tags:
+        - /Users/gnomerock/repo/diversition-api/products/review a product.bru
+      responses:
+        '200':
+          description: ''
+      parameters:
+        - name: id
+          in: query
+          description: ''
+          required: true
+          example: '1'
+      requestBody:
+        $ref: '#/components/requestBodies/review_a_product'
+    get:
+      summary: get product's reviews
+      operationId: get product's reviews
+      description: ''
+      tags:
+        - >-
+          /Users/gnomerock/repo/diversition-api/products/get product's
+          reviews.bru
+      responses:
+        '200':
+          description: ''
+      parameters:
+        - name: page
+          in: query
+          description: ''
+          required: true
+          example: '1'
+        - name: pageSize
+          in: query
+          description: ''
+          required: true
+          example: '5'
+        - name: id
+          in: query
+          description: ''
+          required: true
+          example: '1'
+servers:
+  - url: http://localhost:3000
+components:
+  schemas:
+    login:
+      type: object
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+    review_a_product:
+      type: object
+      properties:
+        review:
+          type: string
+  requestBodies:
+    login:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/login'
+      description: ''
+      required: true
+    review_a_product:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/review_a_product'
+      description: ''
+      required: true
+  securitySchemes: {}
