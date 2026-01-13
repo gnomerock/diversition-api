@@ -1,0 +1,19 @@
+meta {
+  name: get product's reviews
+  type: http
+  seq: 4
+}
+
+get {
+  url: {{url}}/v1/products/:id/reviews
+  body: none
+  auth: inherit
+}
+
+params:path {
+  id: 
+}
+
+settings {
+  encodeUrl: true
+}

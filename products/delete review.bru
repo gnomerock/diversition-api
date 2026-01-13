@@ -1,0 +1,19 @@
+meta {
+  name: delete review
+  type: http
+  seq: 6
+}
+
+delete {
+  url: {{url}}/v1/reviews/:id
+  body: none
+  auth: inherit
+}
+
+params:path {
+  id: 
+}
+
+settings {
+  encodeUrl: true
+}

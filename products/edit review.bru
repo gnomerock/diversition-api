@@ -1,0 +1,20 @@
+meta {
+  name: edit review
+  type: http
+  seq: 5
+}
+
+put {
+  url: {{url}}/v1/reviews/:id
+  body: none
+  auth: inherit
+}
+
+params:path {
+  id: 
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
