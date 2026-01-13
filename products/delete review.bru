@@ -11,9 +11,68 @@ delete {
 }
 
 params:path {
-  id: 
+  id: 1
 }
 
 settings {
   encodeUrl: true
+  timeout: 0
+}
+
+example {
+  name: delete success
+  
+  request: {
+    url: {{url}}/v1/reviews/:id
+    method: DELETE
+    mode: none
+    params:path: {
+      id: 
+    }
+  }
+  
+  response: {
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: text
+      content: '''
+        {
+          "message": "delete review success."
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: review:not found
+  
+  request: {
+    url: {{url}}/v1/reviews/:id
+    method: DELETE
+    mode: none
+    params:path: {
+      id: 99
+    }
+  }
+  
+  response: {
+    status: {
+      code: 404
+      text: Not Found
+    }
+  
+    body: {
+      type: text
+      content: '''
+        {
+          "message": "review id 99 not found."
+        }
+      '''
+    }
+  }
 }

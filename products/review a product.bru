@@ -6,15 +6,91 @@ meta {
 
 post {
   url: {{url}}/v1/products/:id/reviews
-  body: none
+  body: json
   auth: inherit
 }
 
 params:path {
-  id: 
+  id: 1
+}
+
+body:json {
+  {
+    "review": "this is an example review from user"
+  }
 }
 
 settings {
   encodeUrl: true
   timeout: 0
+}
+
+example {
+  name: review success
+  
+  request: {
+    url: {{url}}/v1/products/:id/reviews
+    method: POST
+    mode: json
+    params:path: {
+      id: 1
+    }
+  
+    body:json: {
+      {
+        "review": "this is an example review from user"
+      }
+    }
+  }
+  
+  response: {
+    status: {
+      code: 201
+      text: Created
+    }
+  
+    body: {
+      type: text
+      content: '''
+        {
+          "message": "review success."
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: product: not found
+  
+  request: {
+    url: {{url}}/v1/products/:id/reviews
+    method: POST
+    mode: json
+    params:path: {
+      id: 99
+    }
+  
+    body:json: {
+      {
+        "review": "this is an example review from user"
+      }
+    }
+  }
+  
+  response: {
+    status: {
+      code: 404
+      text: Not Found
+    }
+  
+    body: {
+      type: text
+      content: '''
+        {
+          "message": "product id 99 not found."
+        }
+      '''
+    }
+  }
 }
