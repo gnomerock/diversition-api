@@ -25,3 +25,6 @@ steps to prepare database and implementation
 5. run `npm run generate` to generate prisma client.
 6. (optional) run `npm run studio` to see database relation visualization.
 7. developer can you generated client to query the data with type safe!
+
+### next steps
+1. I will implement with elysiajs because prisma friendly, typesafe, and self documents.
