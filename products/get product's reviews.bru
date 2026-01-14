@@ -29,7 +29,7 @@ settings {
 }
 
 example {
-  name: product's views
+  name: product's reviews
   
   request: {
     url: {{url}}/v1/products/:id/reviews?page=1&pageSize=5
@@ -58,19 +58,21 @@ example {
           "items": [
             {
               "id": 1,
-              "reviews": "nice product",
+              "text": "nice product",
               "user": {
                 "id": 1,
                 "name": "john doe"
-              }
+              },
+              "createdAt": "2026-01-14T14:00:00"
             },
             {
               "id": 2,
-              "reviews": "worth price",
+              "text": "worth price",
               "user": {
                 "id": 2,
                 "name": "jane doe"
-              }
+              },
+              "createdAt": "2026-01-14T15:00:00"
             },
           ],
           page: 1,
