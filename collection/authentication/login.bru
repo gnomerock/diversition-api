@@ -1,0 +1,90 @@
+meta {
+  name: login
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{url}}/v1/auth/login
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "username": "example@diversition.com",
+    "password": "qwer#1337"
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
+
+example {
+  name: success
+  description: login success
+  
+  request: {
+    url: {{url}}/v1/auth/login
+    method: POST
+    mode: json
+    body:json: {
+      {
+        "username": "example@diversition.com",
+        "password": "qwer#1337"
+      }
+    }
+  }
+  
+  response: {
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: text
+      content: '''
+        {
+          "message": "login success.",
+          "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWUsImlhdCI6MTUxNjIzOTAyMn0.KMUFsIDTnFmyG3nMiGM6H9FNFUROf3wh7SmqJp-QV30"
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: failed
+  description: login failed
+  
+  request: {
+    url: {{url}}/v1/auth/login
+    method: POST
+    mode: json
+    body:json: {
+      {
+        "username": "example@diversition.com",
+        "password": "qwer#1337"
+      }
+    }
+  }
+  
+  response: {
+    status: {
+      code: 400
+      text: Bad Request
+    }
+  
+    body: {
+      type: text
+      content: '''
+        {
+          "message": "invalid creadential"
+        }
+      '''
+    }
+  }
+}

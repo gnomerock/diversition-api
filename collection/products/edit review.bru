@@ -1,0 +1,78 @@
+meta {
+  name: edit review
+  type: http
+  seq: 5
+}
+
+put {
+  url: {{url}}/v1/reviews/:id
+  body: none
+  auth: inherit
+}
+
+params:path {
+  id: 1
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
+
+example {
+  name: edit success
+  
+  request: {
+    url: {{url}}/v1/reviews/:id
+    method: PUT
+    mode: none
+    params:path: {
+      id: 1
+    }
+  }
+  
+  response: {
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: text
+      content: '''
+        {
+          "message": "edit review success."
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: review:not found
+  
+  request: {
+    url: {{url}}/v1/reviews/:id
+    method: PUT
+    mode: none
+    params:path: {
+      id: 99
+    }
+  }
+  
+  response: {
+    status: {
+      code: 404
+      text: Not Found
+    }
+  
+    body: {
+      type: text
+      content: '''
+        {
+          "message": "review id 99 not found."
+        }
+      '''
+    }
+  }
+}

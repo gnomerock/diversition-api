@@ -1,0 +1,117 @@
+meta {
+  name: get product's reviews
+  type: http
+  seq: 4
+}
+
+get {
+  url: {{url}}/v1/products/:id/reviews?page=1&pageSize=5
+  body: none
+  auth: inherit
+}
+
+params:query {
+  page: 1
+  pageSize: 5
+}
+
+params:path {
+  id: 1
+}
+
+assert {
+  : eq
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
+
+example {
+  name: product's views
+  
+  request: {
+    url: {{url}}/v1/products/:id/reviews?page=1&pageSize=5
+    method: GET
+    mode: none
+    params:query: {
+      page: 1
+      pageSize: 5
+    }
+  
+    params:path: {
+      id: 1
+    }
+  }
+  
+  response: {
+    status: {
+      code: 200
+      text: OK
+    }
+  
+    body: {
+      type: text
+      content: '''
+        {
+          "items": [
+            {
+              "id": 1,
+              "reviews": "nice product",
+              "user": {
+                "id": 1,
+                "name": "john doe"
+              }
+            },
+            {
+              "id": 2,
+              "reviews": "worth price",
+              "user": {
+                "id": 2,
+                "name": "jane doe"
+              }
+            },
+          ],
+          page: 1,
+          pageSize: 5,
+          total: 2
+        }
+      '''
+    }
+  }
+}
+
+example {
+  name: product: not found
+  
+  request: {
+    url: {{url}}/v1/products/:id/reviews?page=1&pageSize=5
+    method: GET
+    mode: none
+    params:query: {
+      page: 1
+      pageSize: 5
+    }
+  
+    params:path: {
+      id: 99
+    }
+  }
+  
+  response: {
+    status: {
+      code: 404
+      text: Not Found
+    }
+  
+    body: {
+      type: text
+      content: '''
+        {
+          "message": "product id 99 not found."
+        }
+      '''
+    }
+  }
+}
