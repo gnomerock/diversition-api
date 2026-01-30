@@ -1,3 +1,4 @@
+import prisma from './prisma'
 // In-memory store for mock data
 
 export interface Product {
@@ -41,7 +42,9 @@ export const reviews: Review[] = [
 let nextReviewId = 3;
 
 export const store = {
-    getProducts: () => products,
+    getProducts: async () => {
+        return await prisma.product.findMany()
+    },
     getProduct: (id: number) => products.find(p => p.id === id),
     
     getReviewsByProduct: (productId: number) => {

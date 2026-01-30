@@ -2,10 +2,10 @@ import { Elysia, t } from 'elysia';
 import { store } from '../store';
 
 export const productRoutes = new Elysia({ prefix: '/v1/products' })
-    .get('/', ({ query }) => {
+    .get('/', async ({ query }) => {
         const page = parseInt(query.page ?? '1');
         const pageSize = parseInt(query.pageSize ?? '5');
-        const allProducts = store.getProducts();
+        const allProducts = await store.getProducts();
         
         // Mock pagination
         const start = (page - 1) * pageSize;
