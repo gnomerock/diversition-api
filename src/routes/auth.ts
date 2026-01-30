@@ -1,7 +1,14 @@
 import { Elysia, t } from 'elysia';
+import { jwt } from '@elysiajs/jwt';
 
 export const authRoutes = new Elysia({ prefix: '/v1/auth' })
-    .post('/login', ({ body, set }) => {
+    .use(
+        jwt({
+            name: 'jwt',
+            secret: process.env.JWT_SECRET
+        })
+    )
+    .post('/login', async ({ body, set, jwt }) => {
         // Simple mock login
         // In a real app we'd check DB. Here we just mock the behavior from Bruno.
         // Bruno example successful login:
@@ -9,9 +16,13 @@ export const authRoutes = new Elysia({ prefix: '/v1/auth' })
         
         if (body.username === 'example@diversition.com' && body.password === 'qwer#1337') {
              // success
-             return { message: "success" }; // Bruno didn't show success body in the truncated view clearly, assuming standard success or token. 
-             // Wait, looking at the Bruno file (implied from failure case), let's just return a success message or token.
-             // The failure case in Bruno was 400 Bad Request with message "invalid creadential"
+             const token = await jwt.sign({
+                username: body.username
+             });
+             return { 
+                message: "success",
+                token
+             }; 
         }
         
         set.status = 400;
