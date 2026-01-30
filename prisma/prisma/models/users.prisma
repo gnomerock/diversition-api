@@ -4,4 +4,6 @@ model User {
   hashedPassword String @ignore
   name  String
   reviews Review[]
+
+  @@schema("diversition")
 }
